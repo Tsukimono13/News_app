@@ -3,17 +3,29 @@ import {
     Alert,
     FlatList,
     RefreshControl,
-    TouchableOpacity, SafeAreaView
+    TouchableOpacity, SafeAreaView, ScrollView
 } from 'react-native';
-import {Post} from "../components/Post/Post";
-import {useEffect, useState} from "react";
+import React from 'react';
+import {Post} from "../components/post/Post";
+import {useCallback, useEffect, useState} from "react";
 import axios from "axios";
 import Loading from "../components/Loading";
+import * as SplashScreen from 'expo-splash-screen';
+import CategoryFilter from "../components/filters/categoryFilter/categoryFilter";
+import {SelectProvider} from "@mobile-reality/react-native-select-pro";
+import PostBlock from "../components/postBlock/PostBlock";
+import {useFetchPosts} from "../hooks/useFetchPosts";
 
 
 export default function HomeScreen({navigation}) {
+    const [category, setCategory] = useState([]);
     const [posts, setPosts] = useState()
     const [isLoading, setIsLoading] = useState(true)
+    console.log(category)
+
+    SplashScreen.preventAutoHideAsync();
+
+    //const {posts, isLoading, fetchPosts} = useFetchPosts()
 
     const fetchPosts = () => {
         setIsLoading(true)
@@ -27,28 +39,16 @@ export default function HomeScreen({navigation}) {
             })
             .finally(() => {
                 setIsLoading(false)
+                SplashScreen.hideAsync();
             })
     }
-
     useEffect(fetchPosts, [])
 
-    if (isLoading) {
-        return <Loading/>
-    }
 
     return (
         <SafeAreaView>
-            <FlatList refreshControl={<RefreshControl refreshing={isLoading} onRefresh={fetchPosts}/>}
-                      data={[...posts, ...posts]}
-                      renderItem={({item}) => (
-                          <TouchableOpacity
-                              onPress={() => navigation.navigate('FullPost', {id: item.id, title: item.title})}>
-                              <Post key={item.id}
-                                    title={item.title}
-                                    createdAt={item.createdAt}
-                                    imageUrl={item.imageUrl}/>
-                          </TouchableOpacity>
-                      )}/>
+            <CategoryFilter category={category} setCategory={setCategory}/>
+            <PostBlock posts={posts} isLoading={isLoading}/>
         </SafeAreaView>
     );
 }

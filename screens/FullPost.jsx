@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import styled from "styled-components/native";
-import { Alert, Button, Text, View} from "react-native";
+import {Alert, Button, Text, View} from "react-native";
 import axios from "axios";
 import Loading from "../components/Loading";
 
@@ -20,7 +20,7 @@ export const FullPostScreen = ({navigation, route}) => {
             })
             .catch((err) => {
                 console.log(err)
-                Alert.alert('Error, can`t fetch posts')
+                Alert.alert('Error, can`t fetch post')
             })
             .finally(() => {
                 setIsLoading(false)
@@ -34,11 +34,8 @@ export const FullPostScreen = ({navigation, route}) => {
     return (
         <View style={{padding: 20}}>
             <PostImage source={{uri: data.imageUrl}}/>
+            <PostTitle>{data.title}</PostTitle>
             <PostText>{data.text}</PostText>
-            <Button
-                title="Назад"
-                onPress={() => navigation.goBack()}
-            />
         </View>
     );
 };
@@ -54,4 +51,11 @@ const PostImage = styled.Image`
 const PostText = styled.Text`
   font-size: 18px;
   line-height: 24px;
+`
+
+const PostTitle = styled.Text`
+  font-size: 20px;
+  margin-bottom: 20px;
+  text-align: left;
+  font-weight: bold;
 `

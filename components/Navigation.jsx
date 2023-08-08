@@ -17,7 +17,7 @@ export const Navigation = () => {
                 <Stack.Screen
                     name={"FullPost"}
                     component={FullPostScreen}
-                    options={{title: "Full Post"}}
+                    options={{title: "Full post"}}
                 />
             </Stack.Navigator>
         </NavigationContainer>
