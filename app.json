@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "AwesomeProject",
-    "slug": "AwesomeProject",
+    "slug": "newsapp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/iconNews.png",
@@ -15,16 +15,24 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.tsuki1301.newsapp"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/iconNews.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.tsuki1301.newsapp"
     },
     "web": {
       "favicon": "./assets/iconNews.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "bad80c64-235f-4fd7-8d95-4b2298df6aa9"
+      }
+    },
+    "owner": "tsuki1301"
   }
 }
