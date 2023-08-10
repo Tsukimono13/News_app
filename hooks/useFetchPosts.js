@@ -7,8 +7,6 @@ export const useFetchPosts = () => {
 	const [posts, setPosts] = useState();
 	const [isLoading, setIsLoading] = useState(true);
 
-	let ignore = SplashScreen.preventAutoHideAsync();
-
 	const fetchPosts = async () => {
 		setIsLoading(true);
 		try {
@@ -24,6 +22,7 @@ export const useFetchPosts = () => {
 	};
 
 	useEffect(() => {
+		SplashScreen.preventAutoHideAsync();
 		fetchPosts();
 	}, []);
 
